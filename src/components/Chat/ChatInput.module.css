@@ -1,0 +1,75 @@
+.form {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05); /* slightly lighter than neutral */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+}
+
+.icon {
+  color: var(--color-primary);
+  margin-right: 12px;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-secondary);
+  font-size: 16px;
+  padding: 12px 0;
+  outline: none;
+  font-family: inherit;
+}
+
+.input::placeholder {
+  color: rgba(245, 240, 232, 0.4);
+}
+
+.button {
+  background-color: var(--color-primary);
+  color: var(--color-neutral);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-left: 12px;
+}
+
+.button:disabled {
+  background-color: rgba(212, 175, 55, 0.3);
+  color: rgba(10, 10, 10, 0.5);
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(245, 240, 232, 0.4);
+  margin-top: 12px;
+}

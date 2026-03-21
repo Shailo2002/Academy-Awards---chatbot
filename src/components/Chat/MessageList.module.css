@@ -1,0 +1,164 @@
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.emptyBadge {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-primary);
+  mask: url('/envelope-icon.svg') no-repeat center / contain;
+  -webkit-mask: url('/envelope-icon.svg') no-repeat center / contain;
+  margin-bottom: 24px;
+} /* Will fallback if no icon, since it's just a shape */
+
+.emptyTitle {
+  font-family: var(--font-playfair), serif;
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: 48px;
+  color: var(--color-secondary);
+}
+
+.suggestionsList {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 16px 24px;
+  color: var(--color-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.suggestionItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+.suggestionIcon {
+  color: var(--color-primary);
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  max-width: 768px;
+  margin: 0 auto;
+  width: 100%;
+  padding-bottom: 48px;
+}
+
+.messageWrapper {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 0 24px;
+}
+
+.userMessage {
+  justify-content: flex-end;
+}
+
+.botMessage {
+  justify-content: flex-start;
+}
+
+.avatarBot, .avatarUser {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarBot {
+  background-color: rgba(212, 175, 55, 0.15);
+  color: var(--color-primary);
+}
+
+.avatarUser {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-secondary);
+}
+
+.messageContent {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.userMessage .messageContent {
+  align-items: flex-end;
+}
+
+.botMessage .messageContent {
+  align-items: flex-start;
+}
+
+.messageAuthor {
+  font-size: 13px;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-secondary);
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.userMessage .text {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.typingIndicator {
+  display: flex;
+  gap: 4px;
+  padding: 16px 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  align-items: center;
+}
+
+.typingIndicator span {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-secondary);
+  border-radius: 50%;
+  animation: typing 1.4s infinite ease-in-out both;
+  opacity: 0.6;
+}
+
+.typingIndicator span:nth-child(1) { animation-delay: -0.32s; }
+.typingIndicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
