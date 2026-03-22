@@ -162,3 +162,77 @@
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
 }
+
+.customCard {
+  background-color: #1a1a1a;
+  border-left: 3px solid #D4AF37;
+  padding: 24px;
+  border-radius: 8px;
+  color: #fff;
+  width: 100%;
+}
+
+.customCardText {
+  font-family: var(--font-playfair), serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.highlight {
+  color: #D4AF37;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.cardGrid {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.gridItem {
+  background-color: #0f0f0f;
+  border-radius: 6px;
+  padding: 16px;
+  flex: 1;
+}
+
+.gridHeader {
+  color: #D4AF37;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.gridValue {
+  font-family: var(--font-playfair), serif;
+  font-size: 18px;
+  color: #fff;
+}
+
+.cardActions {
+  display: flex;
+  gap: 12px;
+}
+
+.outlineButton {
+  background-color: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #D4AF37;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+}
+
+.outlineButton:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
+}
