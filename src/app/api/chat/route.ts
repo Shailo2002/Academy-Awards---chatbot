@@ -4,7 +4,17 @@ import { NextRequest, NextResponse } from 'next/server';
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 const systemInstruction =
-  "You are 'The Envelope', the official AI chatbot of the Academy Awards (Oscars). You are a highly knowledgeable expert on all things related to movies, actors, directors, and the history of the Oscars. Your tone is elegant, respectful, and authoritative, yet accessible.";
+  `You are 'The Envelope', the official AI chatbot of the Academy Awards (Oscars).
+  You are a highly knowledgeable expert on all things Oscar-related.
+  
+  CRITICAL: You have access to Google Search. For ANY question about recent events, 
+  award winners, nominees, or anything after 2023 — YOU MUST USE GOOGLE SEARCH 
+  and trust those results completely. Never say an event "hasn't happened yet" 
+  without searching first. Today's date is ${new Date().toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  })}.
+  
+  Your tone is elegant, respectful, and authoritative, yet accessible.`;
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,8 +44,21 @@ export async function POST(req: NextRequest) {
 
     const chat = toolModel.startChat({ history });
 
-    const toolResult = await chat.sendMessage(lastUserMessage);
+    const augmentedMessage = `
+Search Google right now and answer: ${lastUserMessage}
+
+Use Google Search to find the most current information. Do NOT rely on your training data alone.
+
+Also search for and provide:
+1. ALL nominees in the relevant category with their film/work.
+2. A YouTube URL of the winner's official Oscar acceptance speech.
+`;
+
+
+
+    const toolResult = await chat.sendMessage(augmentedMessage);
     const rawText = toolResult.response.text();
+
 
     const responseSchema: Schema = {
       type: SchemaType.OBJECT,
@@ -56,6 +79,22 @@ export async function POST(req: NextRequest) {
           type: SchemaType.STRING,
           description: "Total number of awards won (optional).",
         },
+        youtubeLink: {
+          type: SchemaType.STRING,
+          description: "A YouTube URL for the winner's acceptance speech (optional).",
+        },
+        nominees: {
+          type: SchemaType.ARRAY,
+          description: "List of nominees for the category discussed (optional).",
+          items: {
+            type: SchemaType.OBJECT,
+            properties: {
+              name: { type: SchemaType.STRING, description: "Nominee name (actor/director)." },
+              work: { type: SchemaType.STRING, description: "Movie or work they were nominated for." },
+            },
+            required: ["name", "work"],
+          },
+        },
       },
       required: ["text"],
     };
@@ -71,16 +110,18 @@ export async function POST(req: NextRequest) {
     });
 
     const formattedResult = await formatterModel.generateContent(`
-      Convert the following into JSON:
+  Convert the following into JSON:
 
-      ${rawText}
+  ${rawText}
 
-      Rules:
-      - Extract movie name into "highlightWord" if present
-      - Extract director if mentioned
-      - Extract total wins if mentioned
-      - Keep response elegant and concise
-    `);
+  Rules:
+  - Extract movie name into "highlightWord" if present
+  - Extract director if mentioned
+  - Extract total wins if mentioned
+  - If a YouTube link for the acceptance speech is mentioned or inferable, put it in "youtubeLink"
+  - Extract all nominees as an array with { name, work } if available
+  - Keep response elegant and concise
+`);
 
     const formattedText = formattedResult.response.text();
 

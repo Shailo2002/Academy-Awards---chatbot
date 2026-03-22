@@ -8,7 +8,7 @@ import ChatInput from "@/components/Chat/ChatInput";
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState("gemini-2.5-flash");
+  // const [selectedModel, setSelectedModel] = useState("gemini-2.5-flash");
 
   const handleSend = async (content: string) => {
     const userMsg: Message = { id: Date.now().toString(), role: "user", content };
@@ -25,7 +25,7 @@ export default function Home() {
             ...m,
             content: typeof m.content === 'object' ? m.content.text : m.content
           })),
-          model: selectedModel
+          model: "gemini-2.5-flash"
         })
       });
 
@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <ChatLayout>
       <div style={{ padding: '12px 20px', borderBottom: '1px solid #2A2A2A', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-        <select
+        {/* <select
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
           style={{ backgroundColor: '#1A1A1A', color: '#D4AF37', border: '1px solid #333', padding: '6px 12px', borderRadius: '6px', outline: 'none', fontSize: '13px', cursor: 'pointer' }}
@@ -67,7 +67,7 @@ export default function Home() {
           <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
           <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
           <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-        </select>
+        </select> */}
       </div>
       <div style={{ flex: 1, overflowY: "auto", display: 'flex', flexDirection: 'column' }}>
         <MessageList
